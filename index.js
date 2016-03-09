@@ -4,7 +4,7 @@ var util = require('util');
 
 var User = require('./models/user');
 
-mongoose.connect('mongodb://localhost/lpg');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/lpg');
 
 var app = express();
 
