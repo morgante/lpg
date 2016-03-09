@@ -38,7 +38,7 @@ app.get('/api/score/:rfid', function(req, res) {
 		if (err) {
 			res.json(err);
 		} else {
-			res.json(user.points);
+			res.send("+" + user.points + "~");
 		}
 	});
 });
