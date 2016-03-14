@@ -28,6 +28,20 @@ function getUserByRfid(rfid, cb) {
 	});
 }
 
+function updateUserScore(user, pointsChange) {
+	user.points = user.points + pointsChange;
+
+	return new Promise(function(resolve, reject) {
+		user.save(function(err) {
+			if (err) {
+				reject(err);
+			} else {
+				resolve(user);
+			}
+		});
+	});
+}
+
 app.get('/', function(req, res) {
 	res.send('Life Playing Game');
 });
@@ -48,17 +62,11 @@ app.post('/api/eat/:rfid/:type', function(req, res) {
 		if (err) {
 			res.json(err);
 		} else {
-			if (req.params.type === 'good') {
-				user.points = user.points + 100;
-			} else {
-				user.points = user.points - 100;
-			}
-			user.save(function(err) {
-				if (err) {
-					res.json(err);
-				} else {
-					res.json(user.points);
-				}
+			var pointsChange = req.params.type === 'good' ? 100 : -100;
+			updateUserScore(user, pointsChange).then(function(user) {
+				res.json(user.points);
+			}, function(err) {
+				res.json(err);
 			});
 		}
 	});
