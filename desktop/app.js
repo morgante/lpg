@@ -3,6 +3,8 @@ var Menu = require('menu');
 var Tray = require('tray');
 var BrowserWindow = require('browser-window');
 
+var request = require('request');
+
 var userHome = require('user-home');
 var TinyStore = require(__dirname + '/tinystore');
 var store = global.store = new TinyStore(userHome + '/.lpg');
@@ -21,11 +23,22 @@ var menuTemplate = [
 
 var appTray, contextMenu;
 
+function updateScore() {
+  var userKey = store.get('userKey');
+  if (userKey && userKey !== '') {
+    request('http://localhost:5000/api/user/' + userKey, {json: true}, function(err, response, body) {
+      appTray.setTitle('LPG: ' + body.points);
+    });
+  }
+}
+
 app.on('ready', function(){
   appTray = new Tray(null);
   contextMenu = Menu.buildFromTemplate(menuTemplate);
   appTray.setTitle(defaultTitle);
   appTray.setContextMenu(contextMenu);
+
+  setInterval(updateScore, 500);
 });
 
 function showOptions(){

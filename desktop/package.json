@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/morgante/lpg",
   "dependencies": {
+    "request": "^2.69.0",
     "user-home": "^2.0.0"
   },
   "devDependencies": {

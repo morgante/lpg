@@ -46,6 +46,16 @@ app.get('/', function(req, res) {
 	res.send('Life Playing Game');
 });
 
+app.get('/api/user/:key', function(req, res) {
+	User.findOne({key: req.params.key}, function(err, user) {
+		if (err) {
+			res.json(err);
+		} else {
+			res.json(user);
+		}
+	});
+});
+
 app.get('/api/score/:rfid', function(req, res) {
 	getUserByRfid(req.params.rfid, function(err, user) {
 		console.log('points', err, user, user.points);
