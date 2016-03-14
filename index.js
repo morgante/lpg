@@ -96,7 +96,7 @@ app.get('/api/steps/:key/:steps', function(req, res) {
 				});
 			}
 		}
-		update();
+		setTimeout(update, 5000);
 		res.json(pointsChange);
 	});
 });
