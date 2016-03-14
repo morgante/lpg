@@ -74,10 +74,10 @@ function showOptions(){
 //   appTray.setContextMenu(contextMenu);
 // });
 
-// store.on('change', function(key, value){
-//   if (key == 'charsLimit' && currentState == 'playing'){
-//     appTray.setTitle('▶ ' + truncateName(currentName, value) + '  ');
-//   }
-// });
+store.on('change', function(key, value){
+  if (key == 'userKey'){
+    appTray.setTitle('LPG: ' + value + '  ');
+  }
+});
 
 app.dock.hide();
