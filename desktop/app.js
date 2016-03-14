@@ -27,7 +27,9 @@ function updateScore() {
   var userKey = store.get('userKey');
   if (userKey && userKey !== '') {
     request('http://localhost:5000/api/user/' + userKey, {json: true}, function(err, response, body) {
-      appTray.setTitle('💰 ' + body.points);
+      if (!err && body && body.points) {
+        appTray.setTitle('💰 ' + body.points);
+      }
     });
   }
 }
