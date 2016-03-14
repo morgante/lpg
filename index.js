@@ -82,6 +82,17 @@ app.post('/api/eat/:rfid/:type', function(req, res) {
 	});
 });
 
+app.get('/api/steps/:key/:steps', function(req, res) {
+	User.findOne({key: req.params.key}, function(err, user) {
+		var pointsChange = parseInt(req.params.steps);
+		updateUserScore(user, pointsChange).then(function(user) {
+			res.json(user.points);
+		}, function(err) {
+			res.json(err);
+		});
+	});
+});
+
 app.listen(PORT, function(err) {
 	if (err) {
 		console.log('error!', err);
