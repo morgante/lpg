@@ -14,7 +14,7 @@ app.on('window-all-closed', function(e){
   e.preventDefault();
 });
 
-var defaultTitle = 'LPG';
+var defaultTitle = '💰 LPG';
 
 var menuTemplate = [
   { label: "Settings", click: showOptions },
@@ -27,7 +27,7 @@ function updateScore() {
   var userKey = store.get('userKey');
   if (userKey && userKey !== '') {
     request('http://localhost:5000/api/user/' + userKey, {json: true}, function(err, response, body) {
-      appTray.setTitle('LPG: ' + body.points);
+      appTray.setTitle('💰 ' + body.points);
     });
   }
 }
@@ -57,35 +57,6 @@ function showOptions(){
     optionsWindow.show();
   });
 };
-
-// var currentName = '', currentState = 'paused';
-
-// itunes.on('playing', function(data){
-//   currentState = 'playing';
-//   currentName = data.name;
-//   appTray.setTitle('▶ ' + truncateName(currentName) + '  ');
-
-//   menuTemplate[0].label = (data.album)  ? 'Album: '  + data.album  : '';
-//   menuTemplate[1].label = (data.artist)  ? 'Artist: '  + data.artist  : '';
-
-//   menuTemplate[0].visible = data.album.length > 0;
-//   menuTemplate[1].visible = data.artist.length > 0;
-
-//   contextMenu = Menu.buildFromTemplate(menuTemplate);
-
-//   appTray.setContextMenu(contextMenu);
-// });
-
-// itunes.on('paused', function(data){
-//   currentState = 'paused';
-
-//   menuTemplate[0].visible = menuTemplate[1].visible = false;
-
-//   contextMenu = Menu.buildFromTemplate(menuTemplate);
-
-//   appTray.setTitle(defaultTitle);
-//   appTray.setContextMenu(contextMenu);
-// });
 
 store.on('change', function(key, value){
   if (key == 'userKey'){
