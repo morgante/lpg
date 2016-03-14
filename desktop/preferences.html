@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<style>
+body{
+  font-family: system, -apple-system, '.SFNSText-Regular', 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+  background-color: #E9E9E9;
+  padding: 10px;
+  -webkit-user-select: none;
+  cursor: default;
+}
+.segment label{
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+  margin-right: 10px;
+}
+.segment .info{
+  margin-top: 5px;
+  margin-left: 135px;
+  font-size: 80%;
+}
+footer{
+  display: block;
+  font-size: 80%;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+</style>
+<form>
+  <div class="segment">
+    <label>User key:</label> <input id="userKey" type="text" />
+    <div class="info">
+      Set this to your user key to grab your score from the server.
+    </div>
+  </div>
+</form>
+<footer>
+  <a href="https://github.com/morgante/lpg" rel="external">LPG</a> <span id="version"></span>
+</footer>
+<script>
+var shell = require('shell');
+var remote = require('remote');
+var store = remote.getGlobal('store');
+document.addEventListener('click', function(e){
+  var target = e.target;
+  if (target.tagName.toLowerCase() == 'a' && target.rel == 'external'){
+    e.preventDefault();
+    shell.openExternal(target.href);
+  }
+}, false);
+var version = remote.getGlobal('app').getVersion();
+document.getElementById('version').innerHTML = version;
+$userKey = document.getElementById('userKey');
+$userKey.value = store.get('userKey') || '';
+var updateKey = function(){
+  store.set('userKey', $userKey.value);
+};
+$userKey.addEventListener('keyup', updateKey);
+$userKey.addEventListener('change', updateKey);
+</script>

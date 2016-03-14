@@ -1,0 +1,30 @@
+{
+  "name": "lpg_app",
+  "version": "1.0.0",
+  "description": "life playing game client app",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron app.js",
+    "package": "electron-packager . LPG --overwrite --prune --platform=darwin --arch=x64 --version=0.34.0 --ignore=.DS_Store --ignore=LPG.app --ignore=node_modules/.bin --app-version=$npm_package_version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/morgante/lpg.git"
+  },
+  "keywords": [
+    "lpg"
+  ],
+  "author": "Morgante Pell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/morgante/lpg/issues"
+  },
+  "homepage": "https://github.com/morgante/lpg",
+  "dependencies": {
+    "user-home": "^2.0.0"
+  },
+  "devDependencies": {
+    "electron-packager": "~5.1.0",
+    "electron-prebuilt": "0.34.0"
+  }
+}
